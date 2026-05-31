@@ -1064,8 +1064,13 @@
               message: message
             })
               .then(() => {
-                alert('✅ Message sent successfully!');
-              })
+  alert('✅ Message sent successfully!');
+  // Clear all fields
+  document.querySelector('input[type="text"]').value = '';
+  document.querySelector('input[type="email"]').value = '';
+  document.querySelector('textarea').value = '';
+  document.querySelector('select').selectedIndex = 0;
+})
               .catch((error) => {
                 alert('❌ Failed to send. Try again.');
                 console.error(error);
