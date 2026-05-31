@@ -1045,14 +1045,32 @@
         <button class="btn-primary" style="width:100%;justify-content:center;" onclick="sendSMS()">Send Message
           →</button>
 
+         <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
         <script>
-          function sendSMS() {
-            const name = document.querySelector('input[placeholder*="name"], input[type="text"]')?.value || '';
-            const email = document.querySelector('input[type="email"]')?.value || '';
-            const message = document.querySelector('textarea')?.value || '';
+          emailjs.init('mVqcrmX-jJE1o00iD');
 
-            const text = `Hi Pixlume!%0AName: ${name}%0AEmail: ${email}%0AMessage: ${message}`;
-            window.open(`sms:+916380487298?body=${text}`, '_blank');
+          function sendEmail() {
+            const name = document.querySelector('input[placeholder*="name"], input[type="text"]')?.value?.trim() || '';
+            const email = document.querySelector('input[type="email"]')?.value?.trim() || '';
+            const message = document.querySelector('textarea')?.value?.trim() || '';
+
+            if (!name || !email || !message) {
+              alert('Please fill all fields.');
+              return;
+            }
+
+            emailjs.send('service_4miptnj', 'template_tvmya8a', {
+              from_name: name,
+              from_email: email,
+              message: message
+            })
+              .then(() => {
+                alert('✅ Message sent successfully!');
+              })
+              .catch((error) => {
+                alert('❌ Failed to send. Try again.');
+                console.error(error);
+              });
           }
         </script>
       </div>
